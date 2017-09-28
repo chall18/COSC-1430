@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+
+class Computer
+{
+    string name;
+    int RAM;
+    double processor_speed;
+
+public:
+    void setName(string);
+    void setRAM(int);
+    void setProcessorSpeed(double);
+    string getName();
+    int getRAM();
+    double getProcessorSpeed();
+    void print();
+    Computer()//default constructor
+    {
+        name = "Apple";
+        RAM = 8;
+        processor_speed = 1.0;
+    }
+    Computer(string newName, int newRAM, double newPS)//overloaded constructor
+    {
+        name = newName;
+        RAM = newRAM;
+        processor_speed = newPS;
+    }
+};
+
+void Computer::setName(string newName)//setters can just be void
+{
+    name = newName;
+}
+void Computer::setRAM(int newRAM)
+{
+    RAM = newRAM;
+}
+void Computer::setProcessorSpeed(double newPS)
+{
+    processor_speed = newPS;
+}
+string Computer::getName()//getters don't need parameters, but they do need data types
+{
+    return name;
+}
+int Computer::getRAM()
+{
+    return RAM;
+}
+double Computer::getProcessorSpeed()
+{
+    return processor_speed;
+}
+void Computer::print()
+{
+    cout << "Name: " << getName() << endl;
+    cout << "RAM: " << getRAM() << endl;
+    cout << "Processor speed: " << getProcessorSpeed() << endl;
+}
+int main()
+{
+    /*Computer cp1;
+    cp1.print();
+    Computer cp2("Dell", 16, 4.0);
+    cp2.print();*/
+    Computer cp3;
+    cp3.setName("Alienware");
+    cp3.setRAM(42);
+    cp3.setProcessorSpeed(7.0);
+    cp3.print();
+    return 0;
+}
