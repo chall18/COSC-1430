@@ -1,0 +1,30 @@
+/*Using C++, write a program using a while loop to count down from a number and calculate the sum of the numbers starting at 1
+and counting to n. The iteration number, n, is read directly from command line, e.g., ./executable iteration.*/
+
+#include <iostream>
+using namespace std;
+int main(int argc, char *argv[])
+{
+    int num = atoi(argv[1]);
+    if(argc != 2)
+    {
+        cout << "Error" << endl;
+    }
+    else if(num < 0)
+    {
+        cout << "Error" << endl;
+    }
+    else
+    {
+        int counter = 1;
+        int sum = 0;
+        while(counter <= num)
+        {
+            sum += counter;
+            cout << counter << endl;
+            counter++;
+        }
+        cout << "Sum is " << sum << endl;
+    }
+    return 0;
+}
