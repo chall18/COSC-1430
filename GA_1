@@ -1,0 +1,115 @@
+//Program written by Caitlin Hall, Nicholas Marks, and Tommy Truong
+//Division of work was equal. The group worked on it together, so an even split of 1/3 each.
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+double gradeArray[10][5];
+void writefinalGrades(string fileName, double examAvgs[], double studentGrades[], int numOfExams, int numOfStudents)
+{
+    ofstream outfile;
+    outfile.open(fileName);
+    if(outfile.fail())
+    {
+        cerr << "File " << fileName << " could not be opened." << endl;
+        exit(1);
+    }
+    else
+    {
+        outfile << "\tEXAM GRADES\n" << endl;
+        outfile << "EXAM 1\t" << "EXAM 2\t" << "EXAM 3\t" << "EXAM 4\t" << "EXAM 5\t" << "FINAL AVG" << endl;
+        for(int i = 0; i < numOfStudents; i++)
+        {
+            for(int j = 0; j < numOfExams; j++)
+            {
+                outfile << gradeArray[i][j] << "\t";
+            }
+            outfile << studentGrades[i];
+            outfile << endl;
+        }
+        outfile << endl;
+        outfile << "\tEXAM AVERAGE\n\n";
+        for(int i = 0; i < numOfExams; i++)
+        {
+            outfile << examAvgs[i] << "\t";
+        }
+        outfile << endl;
+        outfile.close();
+    }
+}
+void getAvgsOfStudents(double studentAvgs[], double weights[], int numOfExams, int numOfStudents)
+{
+    for(int i = 0; i < numOfStudents; i++)//iterates through rows
+    {
+        double avg = 0;//resets after each row
+        int index = 0;
+        for (int j = 0; j < numOfExams; j++)//iterates through columns
+        {
+            avg += (gradeArray[i][j] * weights[index]);
+            index++;
+        }
+        studentAvgs[i] = avg;
+        //cout << "\t " << studentAvgs[i] << endl;
+    }
+}
+void getAvgsOfExams(double examAvgs[], int numOfExams, int numOfStudents)
+{
+        for(int j = 0; j < numOfExams; j++)//iterates through the columns
+        {
+            double sum = 0.0;
+            for (int i = 0; i < numOfStudents; i++)//iterates through the rows
+            {
+                sum += gradeArray[i][j];//will sum up the current column
+            }
+            double testAvg = sum/numOfStudents;//avg of each column
+            examAvgs[j] = testAvg;
+            //cout << "\t" << examAvgs[j] << endl;
+        }
+    cout << endl;
+}
+void getWeights(double weights[], int numOfExams)
+{
+    int exam = 1;
+    for(int i = 0; i < numOfExams; i++)
+    {
+        cout << "Please input the weight of Exam " << exam << " as a decimal: ";
+        cin >> weights[i];
+        exam++;
+    }
+}
+void readGrades(string fileName, int numberOfExams, int numOfStudents)
+{
+    ifstream priorGrades;
+    priorGrades.open(fileName);
+    if(priorGrades.fail())
+    {
+        cerr << "File gradeBook.txt could not be opened." << endl;
+        exit(1);
+    }
+    else
+    {
+        //double gradeArray[numOfStudents][numberOfExams];
+        for(int i = 0; i < numOfStudents; i++)
+        {
+            for(int j = 0; j < numberOfExams; j++)
+            {
+                priorGrades >> gradeArray[i][j];
+                //cout << gradeArray[i][j] << "\t";
+            }
+            //cout << endl;
+        }
+        priorGrades.close();
+    }
+}
+int main()
+{
+    double examWeights[5];
+    double examAvgs[5];
+    double stuExamAvgs[10];
+    readGrades("gradeBook.txt", 5, 10);
+    getWeights(examWeights, 5);
+    getAvgsOfExams(examAvgs, 5, 10);
+    getAvgsOfStudents(stuExamAvgs, examWeights, 5, 10);
+    writefinalGrades("finalgrade.txt", examAvgs, stuExamAvgs, 5, 10);
+    return 0;
+}
