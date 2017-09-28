@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-/*Using C++, write a program that will decrypt an encrypted array of characters. Teh array of characters will be read
- * directly from the command line, e.g. ./executable characterArray.*/
 int main(int argc, char *argv[])
 {
     if(argc != 2)
