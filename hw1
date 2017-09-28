@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+using namespace std;
+/*Using C++, write a program that will decrypt an encrypted array of characters. Teh array of characters will be read
+ * directly from the command line, e.g. ./executable characterArray.*/
+int main(int argc, char *argv[])
+{
+    if(argc != 2)
+    {
+        cout << "Error" << endl;
+    }
+    else
+    {
+        string phrase = argv[1];
+        for(int i = 0; i < phrase.size(); i++)
+        {
+            switch(i)
+            {
+                case '1':
+                {
+                   replace(phrase.begin(), phrase.end(), '1', 'a');
+                }
+                case '2':
+                {
+                    replace(phrase.begin(), phrase.end(), '2', 'e');
+                }
+                case '3':
+                {
+                    replace(phrase.begin(), phrase.end(), '3', 'i');
+                }
+                case '4':
+                {
+                    replace(phrase.begin(), phrase.end(), '4', 'o');
+                }
+                case '5':
+                {
+                    replace(phrase.begin(), phrase.end(), '5', 'u');
+                }
+                case '6':
+                {
+                    replace(phrase.begin(), phrase.end(), '6', ' ');
+                }
+            }
+        }
+        cout << phrase << endl;
+    }
+    return 0;
+}
