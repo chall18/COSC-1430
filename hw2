@@ -1,0 +1,87 @@
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
+#include <string.h>
+using namespace std;
+
+void writeFile(string fileName, string words[], int numberOfWords)
+{
+    ofstream outfile;
+    outfile.open(fileName);
+    if(outfile.fail())
+    {
+     	cerr << "File " << fileName << " could not be opened." << endl;
+    }
+    else
+    {
+     	for(int i = 0; i < numberOfWords; i++)
+        {
+            outfile << words[i] << endl;
+        }
+       //outfile.close();
+    }
+    outfile.close();
+}
+void replaceWord(string &word, char toReplaceInWord)
+{
+        if(word.at(0) == toReplaceInWord)
+        {
+            word = "----";
+        }
+}
+void readFile(string fileName, string words[], int numberOfWords)
+{
+    //Reads the contents of the txt file into the string array
+    ifstream infile;
+    infile.open(fileName);
+    if(infile.fail())
+    {
+     	 cerr << "File " << fileName << " could not be opened." << endl;
+    }
+    else
+    {
+        string line;
+        for(int i = 0; i < numberOfWords; i++)
+        {
+          getline(infile, line);
+          words[i] = line;
+        }
+	  infile.close();
+    }
+}
+int main(int argc, char *argv[])
+{
+    //Check correct number of arguments
+    if(argc != 5)
+    {
+        cout << "Error" << endl;
+        return 0;
+    }
+    //Handling cmd line args
+    string inputFileName = argv[1];
+    string outputFileName = argv[2];
+    int numberOfWords = stoi(argv[3]);
+    char* lettersToReplace = argv[4];
+    //Checking valid input
+    if(numberOfWords <= 0)
+    {
+        cout << "Error" << endl;
+        return 0;
+    }
+    else
+    {
+        string words[numberOfWords];
+        //Reading input from file
+        readFile(inputFileName, words, numberOfWords);
+        for(int i = 0; i < numberOfWords; i++)
+        {
+            for(int j = 0; j < strlen(lettersToReplace); j++)
+            {
+             	replaceWord(words[i], lettersToReplace[j]);
+            }
+	      }
+        //Output the file
+        writeFile(outputFileName, words, numberOfWords);
+    }
+    return 0;
+}
